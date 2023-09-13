@@ -10,7 +10,7 @@ class Hoyorun:
     def __init__(self):
         self.num = 0
 
-    def response(flow: HTTPFlow):
+    def response(self, flow: HTTPFlow):
         host = flow.request.host
         is_mihoyo = filter_for_hoyo(host)
         if (is_mihoyo):
