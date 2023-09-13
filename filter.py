@@ -45,7 +45,7 @@ class Hoyorun:
             req_content: {
                 '#error': 'CONTENT UNAVAILABLE'
             }
-        else:
+        except Exception:
             req_content: {
                 '#error': 'WHAT MANNER OF CONTENT IS THIS?'
             }
@@ -62,7 +62,7 @@ class Hoyorun:
             resp_content: {
                 '#error': 'CONTENT UNAVAILABLE'
             }
-        else:
+        except Exception:
             req_content: {
                 '#error': 'WHAT MANNER OF CONTENT IS THIS?'
             }
