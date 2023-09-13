@@ -15,9 +15,9 @@ def filter_for_disco(host):
 
 def slugify(s):
   s = s.lower().strip()
-  s = re.sub(r'[^\w\s-]', '', s)
+  s = re.sub(r'[^\w\s-]', '-', s)
   s = re.sub(r'[\s_-]+', '-', s)
-  s = re.sub(r'^-+|-+$', '', s)
+  s = re.sub(r'^-+|-+$', '-', s)
   return s
 
 class Hoyorun:
@@ -26,7 +26,7 @@ class Hoyorun:
         pathlib.Path('./dumps').mkdir(exist_ok=True)
 
     def dump(self, request: Request, response: Response):
-        now = datetime.datetime.now().timestamp
+        now = datetime.datetime.now().timestamp()
         dump_filename = slugify(str(now) + '/' + request.url)
         dump_fp = pathlib.Path('./dumps') / f'{dump_filename}.json'
 
