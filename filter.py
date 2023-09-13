@@ -45,7 +45,11 @@ class Hoyorun:
             req_content: {
                 '#error': 'CONTENT UNAVAILABLE'
             }
-        
+        else:
+            req_content: {
+                '#error': 'WHAT MANNER OF CONTENT IS THIS?'
+            }
+
         resp_content = {}
         try:
             resp_content = response.json()
@@ -57,6 +61,10 @@ class Hoyorun:
         except TypeError:
             resp_content: {
                 '#error': 'CONTENT UNAVAILABLE'
+            }
+        else:
+            req_content: {
+                '#error': 'WHAT MANNER OF CONTENT IS THIS?'
             }
 
         dump_fp.write_text(json.dumps({
