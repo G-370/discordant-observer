@@ -95,6 +95,7 @@ class Hoyorun:
     
     def udp_message(self, flow: UDPFlow): 
         print('udpump: ', flow.type, flow.metadata, flow.client_conn.peername)
-        pass
+    def udp_start(self, flow: UDPFlow):
+        print('udp_start:', flow.type, flow.metadata, flow.client_conn.peername)
 
 addons = [Hoyorun()]
