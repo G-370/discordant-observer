@@ -1,4 +1,5 @@
 from mitmproxy.http import HTTPFlow, Request, Response
+from mitmproxy.udp import UDPFlow, UDPMessage
 import pathlib
 import datetime
 import re
@@ -91,5 +92,9 @@ class Hoyorun:
             # print('\t response headers')
             # for key in flow.response.headers:
             #     print(f'\t\t {key}: {flow.response.headers[key]}')
+    
+    def udp_message(self, flow: UDPFlow): 
+        print('udpump: ', flow.type, flow.metadata, flow.client_conn.peername)
+        pass
 
 addons = [Hoyorun()]
