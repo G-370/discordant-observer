@@ -97,5 +97,7 @@ class Hoyorun:
         print('udpump: ', flow.type, flow.metadata, flow.client_conn.peername)
     def udp_start(self, flow: UDPFlow):
         print('udp_start:', flow.type, flow.metadata, flow.client_conn.peername)
+    def websocket_message(self, flow: HTTPFlow): 
+        print('plop plop plop gateway?', flow.messages[-1])
 
 addons = [Hoyorun()]
