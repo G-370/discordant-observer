@@ -5,6 +5,7 @@ import datetime
 import re
 import json
 import base64
+from wsdecomp import handle_msg
 
 """An addon using the abbreviated scripting syntax."""
 
@@ -102,7 +103,10 @@ class Hoyorun:
     def udp_start(self, flow: UDPFlow):
         print('udp_start:', flow.type, flow.metadata, flow.client_conn.peername)
     def websocket_message(self, flow: HTTPFlow):
-        print('\n, gateway, ', flow.websocket.messages[-1], '\n')
+        msg = handle_msg(flow.websocket.messages[-1])
+
+        print('messageless? or messageyes?', msg)
+
         self.dump(flow.request, flow.response)
 
 addons = [Hoyorun()]
