@@ -30,7 +30,7 @@ class Hoyorun:
         now = datetime.datetime.now().timestamp()
         dump_filename = slugify(str(now) + '/' + request.url)
 
-        if (dump_filename >= 100):
+        if (len(dump_filename) >= 100):
             dump_filename = slugify(str(now) + '/' + request.host)
 
         dump_fp = pathlib.Path('./dumps') / f'{dump_filename}.json'
@@ -101,7 +101,8 @@ class Hoyorun:
         print('udpump: ', flow.type, flow.metadata, flow.client_conn.peername)
     def udp_start(self, flow: UDPFlow):
         print('udp_start:', flow.type, flow.metadata, flow.client_conn.peername)
-    def websocket_message(self, flow: HTTPFlow): 
+    def websocket_message(self, flow: HTTPFlow):
+        print('\n, gateway, ', flow.websocket.messages[-1], '\n')
         self.dump(flow.request, flow.response)
 
 addons = [Hoyorun()]
