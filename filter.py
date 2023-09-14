@@ -29,6 +29,10 @@ class Hoyorun:
     def dump(self, request: Request, response: Response):
         now = datetime.datetime.now().timestamp()
         dump_filename = slugify(str(now) + '/' + request.url)
+
+        if (dump_filename >= 100):
+            dump_filename = slugify(str(now) + '/' + request.host)
+
         dump_fp = pathlib.Path('./dumps') / f'{dump_filename}.json'
 
         req_headers = dict(request.headers)
