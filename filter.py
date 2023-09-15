@@ -4,7 +4,7 @@ import pathlib
 import datetime
 import json
 import base64
-from wsdecomp import handle_msg
+from wsdecomp import handle_msg, dump_msg
 from utils import slugify
 
 """An addon using the abbreviated scripting syntax."""
@@ -102,8 +102,9 @@ class Hoyorun:
         #print('messageless? or messageyes?', msg)
         if ('gateway.discord.gg' in flow.request.host):
             print('Capturing Discord Gateway Message')
-            msg = handle_msg(flow.websocket.messages[-1].content)
-            print('msg introspection >', msg)
+            dump_msg(flow.request.host, flow.websocket.messages[-1].content)
+            #msg = handle_msg(flow.websocket.messages[-1].content)
+            #print('msg introspection >', msg)
 
         #self.dump(flow.request, flow.response)
 
