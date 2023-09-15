@@ -2,10 +2,10 @@ from mitmproxy.http import HTTPFlow, Request, Response
 from mitmproxy.udp import UDPFlow, UDPMessage
 import pathlib
 import datetime
-import re
 import json
 import base64
 from wsdecomp import handle_msg
+from utils import slugify
 
 """An addon using the abbreviated scripting syntax."""
 
@@ -14,13 +14,6 @@ def filter_for_hoyo(host):
 
 def filter_for_disco(host):
     return 'discord' in host
-
-def slugify(s):
-  s = s.lower().strip()
-  s = re.sub(r'[^\w\s-]', '-', s)
-  s = re.sub(r'[\s_-]+', '-', s)
-  s = re.sub(r'^-+|-+$', '-', s)
-  return s
 
 class Hoyorun:
     def __init__(self):
@@ -107,7 +100,11 @@ class Hoyorun:
         #msg = handle_msg(ws_msg.content)
 
         #print('messageless? or messageyes?', msg)
+        if ('gateway.discord.gg' in flow.request.host):
+            print('Capturing Discord Gateway Message')
+            msg = handle_msg(flow.websocket.messages[-1].content)
+            print('msg introspection >', msg)
 
-        self.dump(flow.request, flow.response)
+        #self.dump(flow.request, flow.response)
 
 addons = [Hoyorun()]
