@@ -16,4 +16,4 @@ def handle_msg(msg):
 
         return msg
     else:
-        print('Message is not bytes!! it is...', msg)
+        print('Message is not bytes!! it is...', type(msg))
