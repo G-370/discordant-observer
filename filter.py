@@ -103,7 +103,8 @@ class Hoyorun:
     def udp_start(self, flow: UDPFlow):
         print('udp_start:', flow.type, flow.metadata, flow.client_conn.peername)
     def websocket_message(self, flow: HTTPFlow):
-        msg = handle_msg(flow.websocket.messages[-1])
+        ws_msg = flow.websocket.messages[-1]
+        msg = handle_msg(ws_msg.content)
 
         print('messageless? or messageyes?', msg)
 
