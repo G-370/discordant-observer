@@ -3,12 +3,12 @@ import zlib
 _buffer: bytearray = bytearray()
 _zlib = zlib.decompressobj()
 
-def handle_msg(msg):
+def handle_msg(rawmsg):
     global _buffer, _zlib
-    if type(msg) is bytes:
-        _buffer.extend(msg)
+    if type(rawmsg) is bytes:
+        _buffer.extend(rawmsg)
 
-        if len(msg) < 4 or msg[-4:] != b'\x00\x00\xff\xff':
+        if len(rawmsg) < 4 or rawmsg[-4:] != b'\x00\x00\xff\xff':
             return
         msg = _zlib.decompress(_buffer)
         msg = msg.decode('utf-8')
@@ -16,4 +16,4 @@ def handle_msg(msg):
 
         return msg
     else:
-        print('Message is not bytes!! it is...', type(msg))
+        print('Message is not bytes!! it is...', type(rawmsg))
