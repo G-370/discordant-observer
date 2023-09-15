@@ -15,3 +15,5 @@ def handle_msg(msg):
         _buffer = bytearray()
 
         return msg
+    else:
+        print('Message is not bytes!! it is...', msg)
