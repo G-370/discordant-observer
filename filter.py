@@ -97,12 +97,14 @@ class Hoyorun:
         print('udp_start:', flow.type, flow.metadata, flow.client_conn.peername)
     def websocket_message(self, flow: HTTPFlow):
         ws_msg = flow.websocket.messages[-1]
+
+        print('introspecting sussy msg length', len(flow.websocket.messages))
         #msg = handle_msg(ws_msg.content)
 
         #print('messageless? or messageyes?', msg)
         if ('gateway.discord.gg' in flow.request.host):
             print('Capturing Discord Gateway Message')
-            dump_msg(flow.request.host, flow.websocket.messages[-1].content)
+            #dump_msg(flow.request.host, flow.websocket.messages[-1].content)
             #msg = handle_msg(flow.websocket.messages[-1].content)
             #print('msg introspection >', msg)
 
