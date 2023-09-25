@@ -21,9 +21,10 @@ def filter_for_disco(host):
 zob = zlib.decompressobj()
 
 class DiscordGatewayDecoder:
-    def __init__(self) -> None:
+    def __init__(self, key) -> None:
         self.buffer = bytearray()
         self.zlib = zob
+        self.key = key
     def handle_raw_message(self, msg: bytes):
         ending = msg[-4:]
 
@@ -31,9 +32,12 @@ class DiscordGatewayDecoder:
             self.buffer.extend(msg)
             full_msg = bytes(self.buffer)
             self.buffer = bytearray()
-
-            jsonstr = self.zlib.decompress(full_msg)
-            print('gayes!', jsonstr)
+            try:
+                jsonstr = self.zlib.decompress(full_msg)
+                print('gayes!', jsonstr)
+            except Exception as e:
+                client_discord_decoders.pop(self.key)
+                print('Exception, could not decompress message buffer, self destroying...', e)
         else:
             self.buffer.extend(msg)
 
