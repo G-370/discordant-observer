@@ -6,6 +6,7 @@ import json
 import base64
 from wsdecomp import handle_msg, dump_msg
 from utils import slugify
+import zlib
 
 """An addon using the abbreviated scripting syntax."""
 
@@ -14,6 +15,22 @@ def filter_for_hoyo(host):
 
 def filter_for_disco(host):
     return 'discord' in host
+
+class DiscordGatewayDecoder:
+    def __init__(self) -> None:
+        self.buffer = bytearray()
+        self.zlib = zlib.decompressobj
+    def handle_raw_message(self, msg: bytes):
+        ending = msg[-4:]
+
+        if (ending == b"\x00\x00\xFF\xFF"):
+            self.buffer.extend(msg)
+            full_msg = bytes(self.buffer)
+            
+        else:
+            self.buffer.extend(msg)
+
+client_discord_decoders = {}
 
 class Hoyorun:
     def __init__(self):
@@ -82,14 +99,6 @@ class Hoyorun:
         is_mihoyo = filter_for_hoyo(host)
         if (is_mihoyo):
             print('Hoyorun: ', flow.request.url)
-            self.dump(flow.request, flow.response)
-
-            # print('\t request headers')
-            # for key in flow.request.headers:
-            #     print(f'\t\t {key}: {flow.request.headers[key]}')
-            # print('\t response headers')
-            # for key in flow.response.headers:
-            #     print(f'\t\t {key}: {flow.response.headers[key]}')
     
     def udp_message(self, flow: UDPFlow): 
         print('udpump: ', flow.type, flow.metadata, flow.client_conn.peername)
@@ -98,16 +107,11 @@ class Hoyorun:
     def websocket_message(self, flow: HTTPFlow):
         ws_msg = flow.websocket.messages[-1]
 
-        print('introspecting sussy msg length', len(flow.websocket.messages))
-        #msg = handle_msg(ws_msg.content)
+        if (ws_msg.type == 'RECEIVE'):
+            base64.b64decode(ws_msg.content)
 
-        #print('messageless? or messageyes?', msg)
         if ('gateway.discord.gg' in flow.request.host):
             print('Capturing Discord Gateway Message')
-            #dump_msg(flow.request.host, flow.websocket.messages[-1].content)
-            #msg = handle_msg(flow.websocket.messages[-1].content)
-            #print('msg introspection >', msg)
-
-        #self.dump(flow.request, flow.response)
+            print('\t flow.client_conn ', flow.client_conn.peername)
 
 addons = [Hoyorun()]
