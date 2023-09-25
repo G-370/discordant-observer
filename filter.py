@@ -34,8 +34,9 @@ class DiscordGatewayDecoder:
                 jsonstr = self.zlib.decompress(full_msg)
 
                 try:
-                    print('gayes!', jsonstr.decode('utf-8'))
+                    print('jsonussy', jsonstr.decode('utf-8'))
                 except Exception as e:
+                    print('erlangussy', jsonstr)
                     print('not possible to decode decompressed message, must be using discord application')
 
             except Exception as e:
