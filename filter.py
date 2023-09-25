@@ -18,10 +18,12 @@ def filter_for_hoyo(host):
 def filter_for_disco(host):
     return 'discord' in host
 
+zob = zlib.decompressobj()
+
 class DiscordGatewayDecoder:
     def __init__(self) -> None:
         self.buffer = bytearray()
-        self.zlib = zlib.decompressobj()
+        self.zlib = zob
     def handle_raw_message(self, msg: bytes):
         ending = msg[-4:]
 
@@ -67,6 +69,6 @@ class DiscordSnoofington:
             data = ws_msg.content
             if (not ws_msg.is_text):
                 capture_discord_gateway_message(decoder_key, data)
-                print('Capturing Discord Gateway Message ', decoder_key)
+                print('Capturing Discord Gateway Message ', decoder_key, list(client_discord_decoders.keys()))
 
 addons = [DiscordSnoofington()]
