@@ -1,8 +1,13 @@
 import etf
 import json
 import base64
+import pymongo
 
 from flask import Flask, request, jsonify
+
+db = pymongo.MongoClient(host='autosystem', port=27027)
+dsd_gateway = db.dsd_dmg
+received_messages = dsd_gateway.received_messages
 
 app = Flask(__name__)
 
@@ -15,8 +20,9 @@ def decompress_dmg(decompressed_msg):
 
         cleaned = {etf.etf_json(name): etf.etf_json(val) for name, val in terms.items()}
 
-        dumpty = json.dumps(cleaned, indent=True)
-        print('did this sussy work?', dumpty)
+        received_messages.insert_one(cleaned)
+
+        print('inserted one dmg')
 
 @app.post("/dmg")
 def add_country():
