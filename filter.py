@@ -18,12 +18,10 @@ def filter_for_hoyo(host):
 def filter_for_disco(host):
     return 'discord' in host
 
-zob = zlib.decompressobj()
-
 class DiscordGatewayDecoder:
     def __init__(self, key) -> None:
         self.buffer = bytearray()
-        self.zlib = zob
+        self.zlib = zlib.decompressobj()
         self.key = key
     def handle_raw_message(self, msg: bytes):
         ending = msg[-4:]
@@ -73,7 +71,7 @@ class DiscordSnoofington:
             data = ws_msg.content
 
             try:
-                jsob = zob.decompress(data)
+                jsob = zlib.decompress(data)
                 print('pre-decomped with sucess!!', jsob)
             except:
                 print('could not pre-decomp')
