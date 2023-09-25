@@ -65,7 +65,8 @@ class DiscordSnoofington:
             decoder_key = f'{ipstr}_{websocket_key}'
 
             data = ws_msg.content
-            capture_discord_gateway_message(decoder_key, data)
-            print('Capturing Discord Gateway Message', ws_msg.is_text)
+            if (not ws_msg.is_text):
+                capture_discord_gateway_message(decoder_key, data)
+                print('Capturing Discord Gateway Message')
 
 addons = [DiscordSnoofington()]
