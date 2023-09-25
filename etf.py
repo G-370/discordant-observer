@@ -413,6 +413,9 @@ ERLANG_TYPES_WITHOUT_EMBEDDED_VALUE = [
 ]
 
 def etf_json(obj):
+    if (isinstance(obj, bytes)):
+        return obj.decode('utf-8')
+
     if (isinstance(obj, dict)):
         cleaned = {etf_json(name): etf_json(val) for name, val in obj.items()}
         return cleaned
