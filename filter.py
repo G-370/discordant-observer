@@ -9,6 +9,7 @@ from wsdecomp import handle_msg, dump_msg
 from utils import slugify
 from typing import Dict
 import zlib
+import etf
 
 """An addon using the abbreviated scripting syntax."""
 
@@ -38,6 +39,8 @@ class DiscordGatewayDecoder:
                 except Exception as e:
                     print('erlangussy', jsonstr)
                     print('not possible to decode decompressed message, must be using discord application')
+                    terms = etf.binary_to_term(jsonstr)
+                    print('did this sussy work?', terms)
 
             except Exception as e:
                 client_discord_decoders.pop(self.key)
