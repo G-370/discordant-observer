@@ -36,7 +36,7 @@ class DiscordGatewayDecoder:
 
                 try:
                     requests.post(url="http://0.0.0.0:51235/dmg", data=decompressed_msg, timeout=0.0000000001)
-                except requests.exceptions.ReadTimeout: 
+                except Exception: 
                     pass
 
             except Exception as e:
