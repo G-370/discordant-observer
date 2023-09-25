@@ -60,11 +60,12 @@ class DiscordSnoofington:
 
         if ('gateway.discord.gg' in flow.request.host):
             (ipstr, ipval) = flow.client_conn.peername
+            websocket_key = flow.request.headers.get('Sec-WebSocket-Key')
 
-            print(flow.request.headers.get('Sec-WebSocket-Key'))
+            decoder_key = f'{ipstr}_{websocket_key}'
 
             data = ws_msg.content
-            #capture_discord_gateway_message(ipstr, data)
+            capture_discord_gateway_message(decoder_key, data)
             print('Capturing Discord Gateway Message')
 
 addons = [DiscordSnoofington()]
