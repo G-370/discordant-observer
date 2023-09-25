@@ -413,6 +413,10 @@ ERLANG_TYPES_WITHOUT_EMBEDDED_VALUE = [
 ]
 
 def etf_json(obj):
+    if (isinstance(obj, dict)):
+        cleaned = {etf_json(name): etf_json(val) for name, val in obj.items()}
+        return cleaned
+
     for etftype in ERLANG_TYPES_WITH_EMBEDDED_VALUE:
         if (isinstance(obj, etftype)):
             return obj.value
