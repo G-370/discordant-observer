@@ -71,8 +71,15 @@ class DiscordSnoofington:
             decoder_key = f'{ipstr}_{websocket_key}'
 
             data = ws_msg.content
+
+            try:
+                jsob = zob.decompress(data)
+                print('pre-decomped with sucess!!', jsob)
+            except:
+                print('could not pre-decomp')
+
             if (not ws_msg.is_text):
-                capture_discord_gateway_message(decoder_key, data)
+                #capture_discord_gateway_message(decoder_key, data)
                 print('Capturing Discord Gateway Message ', decoder_key, list(client_discord_decoders.keys()))
 
 addons = [DiscordSnoofington()]
