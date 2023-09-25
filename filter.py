@@ -37,7 +37,7 @@ class DiscordGatewayDecoder:
                 try:
                     print('jsonussy', jsonstr.decode('utf-8'))
                 except Exception as e:
-                    print('erlangussy', jsonstr)
+                    #print('erlangussy', jsonstr)
                     print('not possible to decode decompressed message, must be using discord application')
                     terms = etf.binary_to_term(jsonstr)
                     print('did this sussy work?', terms)
