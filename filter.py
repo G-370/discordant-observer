@@ -43,8 +43,8 @@ class DiscordGatewayDecoder:
 
                     cleaned = {etf.etf_json(name): etf.etf_json(val) for name, val in terms.items()}
 
-                    dumpty = json.dumps(cleaned, indent=True)
-                    print('did this sussy work?', dumpty)
+                    #dumpty = json.dumps(cleaned, indent=True)
+                    print('did this sussy work?', cleaned)
 
             except Exception as e:
                 client_discord_decoders.pop(self.key)
