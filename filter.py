@@ -61,7 +61,7 @@ class DiscordSnoofington:
         if ('gateway.discord.gg' in flow.request.host):
             (ipstr, ipval) = flow.client_conn.peername
 
-            print(flow.request.headers)
+            print(flow.request.headers.get('Sec-WebSocket-Key'))
 
             data = ws_msg.content
             #capture_discord_gateway_message(ipstr, data)
