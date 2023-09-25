@@ -413,7 +413,7 @@ ERLANG_TYPES_WITHOUT_EMBEDDED_VALUE = [
 ]
 
 def etf_json(obj):
-    if (isinstance(obj, bytes)):
+    if (type(obj) == type(b'\x00')):
         return obj.decode('utf-8')
 
     if (isinstance(obj, dict)):
