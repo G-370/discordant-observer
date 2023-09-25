@@ -61,9 +61,10 @@ class DiscordSnoofington:
         if ('gateway.discord.gg' in flow.request.host):
             (ipstr, ipval) = flow.client_conn.peername
 
-            if (ws_msg.type == 'RECEIVE'):
-                data = base64.b64decode(ws_msg.content)
-                capture_discord_gateway_message(ipstr, data)
-                print('Capturing Discord Gateway Message')
+            print(ws_msg)
+
+            data = base64.b64decode(ws_msg.content)
+            capture_discord_gateway_message(ipstr, data)
+            print('Capturing Discord Gateway Message')
 
 addons = [DiscordSnoofington()]
