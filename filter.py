@@ -66,6 +66,6 @@ class DiscordSnoofington:
 
             data = ws_msg.content
             capture_discord_gateway_message(decoder_key, data)
-            print('Capturing Discord Gateway Message')
+            print('Capturing Discord Gateway Message', ws_msg.is_text)
 
 addons = [DiscordSnoofington()]
