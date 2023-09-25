@@ -5,6 +5,7 @@ import datetime
 import json
 import requests
 import base64
+import flask
 from wsdecomp import handle_msg, dump_msg
 from utils import slugify
 from typing import Dict
@@ -32,19 +33,9 @@ class DiscordGatewayDecoder:
             full_msg = bytes(self.buffer)
             self.buffer = bytearray()
             try:
-                jsonstr = self.zlib.decompress(full_msg)
+                decompressed_msg = self.zlib.decompress(full_msg)
 
-                try:
-                    print('jsonussy', jsonstr.decode('utf-8'))
-                except Exception as e:
-                    #print('erlangussy', jsonstr)
-                    print('not possible to decode decompressed message, must be using discord application')
-                    terms = etf.binary_to_term(jsonstr)
-
-                    cleaned = {etf.etf_json(name): etf.etf_json(val) for name, val in terms.items()}
-
-                    dumpty = json.dumps(cleaned, indent=True)
-                    print('did this sussy work?', dumpty)
+                #requests.post(url="http://0.0.0.0:51235/dmg", data=decompressed_msg)
 
             except Exception as e:
                 client_discord_decoders.pop(self.key)
