@@ -41,6 +41,7 @@ class DiscordGatewayDecoder:
                     print('not possible to decode decompressed message, must be using discord application')
                     terms = etf.binary_to_term(jsonstr)
 
+                    print(terms)
                     cleaned = {etf.etf_json(name): etf.etf_json(val) for name, val in terms.items()}
 
                     dumpty = json.dumps(cleaned, indent=True)
