@@ -43,7 +43,7 @@ client_discord_decoders: Dict[str, DiscordGatewayDecoder] = {}
 
 def capture_discord_gateway_message(client_key: str, msg: bytes):
     if (client_key not in client_discord_decoders):
-        client_discord_decoders[client_key] = DiscordGatewayDecoder()
+        client_discord_decoders[client_key] = DiscordGatewayDecoder(client_key)
     
     client_discord_decoders[client_key].handle_raw_message(msg)
 
