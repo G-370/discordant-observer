@@ -1,5 +1,6 @@
 import etf
 import json
+import base64
 
 from flask import Flask, request, jsonify
 
@@ -19,11 +20,9 @@ def decompress_dmg(decompressed_msg):
 
 @app.post("/dmg")
 def add_country():
-    if request.is_json:
-        content_data = request.get_data()
-        decompress_dmg(content_data)
-        return 'OK'
-    return {"error": "Request must be JSON"}, 415
+    content_data = request.get_data()
+    decompress_dmg(content_data)
+    return 'OK'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='51235', debug=True)
