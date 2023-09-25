@@ -5,7 +5,6 @@ import datetime
 import json
 import requests
 import base64
-import flask
 from wsdecomp import handle_msg, dump_msg
 from utils import slugify
 from typing import Dict
@@ -34,8 +33,7 @@ class DiscordGatewayDecoder:
             self.buffer = bytearray()
             try:
                 decompressed_msg = self.zlib.decompress(full_msg)
-
-                #requests.post(url="http://0.0.0.0:51235/dmg", data=decompressed_msg)
+                requests.post(url="http://0.0.0.0:51235/dmg", data=decompressed_msg)
 
             except Exception as e:
                 client_discord_decoders.pop(self.key)
