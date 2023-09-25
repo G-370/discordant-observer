@@ -422,7 +422,7 @@ def etf_json(obj):
 
     for etftype in ERLANG_TYPES_WITH_EMBEDDED_VALUE:
         if (isinstance(obj, etftype)):
-            return obj.value
+            return etf_json(obj.value)
     
     for etftype in ERLANG_TYPES_WITHOUT_EMBEDDED_VALUE:
         if (isinstance(obj, etftype)):
