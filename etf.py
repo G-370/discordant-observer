@@ -419,6 +419,12 @@ def etf_json(obj):
     if (isinstance(obj, dict)):
         cleaned = {etf_json(name): etf_json(val) for name, val in obj.items()}
         return cleaned
+    
+    if (isinstance(obj, list)):
+        cleaned = []
+        for thing in obj:
+            cleaned.append(etf_json(thing))
+        return cleaned
 
     for etftype in ERLANG_TYPES_WITH_EMBEDDED_VALUE:
         if (isinstance(obj, etftype)):
