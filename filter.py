@@ -32,7 +32,12 @@ class DiscordGatewayDecoder:
             self.buffer = bytearray()
             try:
                 jsonstr = self.zlib.decompress(full_msg)
-                print('gayes!', jsonstr.decode('utf-8'))
+
+                try:
+                    print('gayes!', jsonstr.decode('utf-8'))
+                except Exception as e:
+                    print('not possible to decode decompressed message, must be using discord application')
+
             except Exception as e:
                 client_discord_decoders.pop(self.key)
                 print('Exception, could not decompress message buffer, self destroying...', e)
