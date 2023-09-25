@@ -40,7 +40,9 @@ class DiscordGatewayDecoder:
                     #print('erlangussy', jsonstr)
                     print('not possible to decode decompressed message, must be using discord application')
                     terms = etf.binary_to_term(jsonstr)
-                    print('did this sussy work?', terms)
+
+                    dumpty = json.dumps(terms, indent=True, default=etf.etf_json)
+                    print('did this sussy work?', dumpty)
 
             except Exception as e:
                 client_discord_decoders.pop(self.key)

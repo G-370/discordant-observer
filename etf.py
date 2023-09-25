@@ -33,6 +33,7 @@ import sys
 import struct
 import zlib
 import copy
+import base64
 
 if sys.version_info[0] >= 3:
     TypeLong = int # pylint: disable=invalid-name
@@ -395,6 +396,32 @@ class OtpErlangFunction(object):
         return hash(self.binary())
     def __eq__(self, other):
         return self.binary() == other.binary()
+
+# erlang types mapping and facility
+
+ERLANG_TYPES_WITH_EMBEDDED_VALUE = [
+    OtpErlangAtom,
+    OtpErlangBinary,
+    OtpErlangList
+]
+
+ERLANG_TYPES_WITHOUT_EMBEDDED_VALUE = [
+    OtpErlangFunction,
+    OtpErlangPid,
+    OtpErlangPort,
+    OtpErlangReference
+]
+
+def etf_json(obj):
+    for etftype in ERLANG_TYPES_WITH_EMBEDDED_VALUE:
+        if (isinstance(obj, etftype)):
+            return obj.value
+    
+    for etftype in ERLANG_TYPES_WITHOUT_EMBEDDED_VALUE:
+        if (isinstance(obj, etftype)):
+            return base64.b64encode(obj.binary()).decode('utf-8')
+    
+    return obj
 
 # dependency to support Erlang maps as map keys in python
 
