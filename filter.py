@@ -33,7 +33,11 @@ class DiscordGatewayDecoder:
             self.buffer = bytearray()
             try:
                 decompressed_msg = self.zlib.decompress(full_msg)
-                requests.post(url="http://0.0.0.0:51235/dmg", data=decompressed_msg, timeout=2)
+
+                try:
+                    requests.post(url="http://0.0.0.0:51235/dmg", data=decompressed_msg, timeout=0.0000000001)
+                except requests.exceptions.ReadTimeout: 
+                    pass
 
             except Exception as e:
                 client_discord_decoders.pop(self.key)
