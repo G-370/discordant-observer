@@ -63,20 +63,20 @@ class DiscordSnoofington:
         ws_msg = flow.websocket.messages[-1]
 
         if ('gateway.discord.gg' in flow.request.host):
+            print('message metadata', '\t', flow.metadata)
             (ipstr, ipval) = flow.client_conn.peername
             websocket_key = flow.request.headers.get('Sec-WebSocket-Key')
+
+            user_agent = flow.request.headers.get('User-Agent')
+            if (type(user_agent) == type(b'\x00')):
+                user_agent = user_agent.decode('utf-8')
+            user_agent = user_agent.lower()
 
             decoder_key = f'{ipstr}_{websocket_key}'
 
             data = ws_msg.content
 
-            try:
-                jsob = zlib.decompress(data)
-                print('pre-decomped with sucess!!', jsob)
-            except:
-                print('could not pre-decomp')
-
-            if (not ws_msg.is_text):
+            if (not ws_msg.from_client):
                 #capture_discord_gateway_message(decoder_key, data)
                 print('Capturing Discord Gateway Message ', decoder_key, list(client_discord_decoders.keys()))
 
