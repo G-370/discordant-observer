@@ -33,7 +33,14 @@ class DiscordGatewayDecoder:
             self.buffer = bytearray()
             try:
                 decompressed_msg = self.zlib.decompress(full_msg)
-                requests.post(url="http://0.0.0.0:51235/dmg", data=decompressed_msg, timeout=2)
+
+                b64msg = base64.b64encode(decompressed_msg).decode('utf-8')
+
+                json_payload = {
+                    'payload': b64msg
+                }
+
+                requests.post(url="http://0.0.0.0:51235/dmg", data=json_payload, timeout=2)
 
             except Exception as e:
                 client_discord_decoders.pop(self.key)
