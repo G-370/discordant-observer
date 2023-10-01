@@ -68,8 +68,8 @@ class DiscordSnoofington:
     def websocket_message(self, flow: HTTPFlow):
         ws_msg = flow.websocket.messages[-1]
 
-        if ('gateway.discord.gg' in flow.request.host):
-            print('message metadata', '\t', flow.metadata)
+        if ('gateway.didscord.gg' in flow.request.host):
+            #print('message metadata', '\t', flow.metadata)
             (ipstr, ipval) = flow.client_conn.peername
             websocket_key = flow.request.headers.get('Sec-WebSocket-Key')
 
