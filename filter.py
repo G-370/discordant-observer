@@ -91,7 +91,8 @@ class PuzzleIOHackington:
         pass
     def request(self, flow: HTTPFlow):
         url = flow.request.url
-        if ('puzzle.aggie.io' in url):
-            print('True!', url)
+        if ('puzzle.aggie.io' in url and url.endswith('.js')):
+            flow.response.set_content(pathlib.Path('./dopescripts.js').read_bytes())
+            print('Rewrote sex!', url)
 
 addons = [DiscordSnoofington(), PuzzleIOHackington()]

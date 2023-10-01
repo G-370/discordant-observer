@@ -3254,7 +3254,7 @@
               });
               break;
             case 13:
-              location.reload();
+              //location.reload();
               break;
             case 14:
               Me.style.display = 'block',
