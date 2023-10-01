@@ -84,6 +84,14 @@ class DiscordSnoofington:
 
             if (not ws_msg.from_client):
                 capture_discord_gateway_message(decoder_key, data)
-                print('Capturing Discord Gateway Message ', decoder_key, list(client_discord_decoders.keys()))
+                #print('Capturing Discord Gateway Message ', decoder_key, list(client_discord_decoders.keys()))
+
+class PuzzleIOHackington:
+    def __init__(self) -> None:
+        pass
+    def request(self, flow: HTTPFlow):
+        url = flow.request.url
+        if ('puzzle.aggie.io' in url):
+            print('True!', url)
 
 addons = [DiscordSnoofington()]
