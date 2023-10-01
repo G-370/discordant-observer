@@ -89,7 +89,7 @@ class DiscordSnoofington:
 class PuzzleIOHackington:
     def __init__(self) -> None:
         pass
-    def request(self, flow: HTTPFlow):
+    def response(self, flow: HTTPFlow):
         url = flow.request.url
         if ('puzzle.aggie.io' in url and url.endswith('.js')):
             flow.response.set_content(pathlib.Path('./dopescripts.js').read_bytes())
