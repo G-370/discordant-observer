@@ -94,4 +94,4 @@ class PuzzleIOHackington:
         if ('puzzle.aggie.io' in url):
             print('True!', url)
 
-addons = [DiscordSnoofington()]
+addons = [DiscordSnoofington(), PuzzleIOHackington()]
