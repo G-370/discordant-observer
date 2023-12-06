@@ -25,7 +25,7 @@ def decompress_dmg(decompressed_msg):
         print('inserted one dmg')
 
 @app.post("/dmg")
-def add_country():
+def decode_incoming_gateway_message():
     content_data = request.get_data()
     decompress_dmg(content_data)
     return 'OK'
