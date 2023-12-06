@@ -13,9 +13,6 @@ import etf
 
 """An addon using the abbreviated scripting syntax."""
 
-def filter_for_hoyo(host):
-    return 'hoyo' in host or 'yuanshen' in host or 'hk4e' in host
-
 def filter_for_disco(host):
     return 'discord' in host
 
@@ -86,13 +83,5 @@ class DiscordSnoofington:
                 capture_discord_gateway_message(decoder_key, data)
                 #print('Capturing Discord Gateway Message ', decoder_key, list(client_discord_decoders.keys()))
 
-class PuzzleIOHackington:
-    def __init__(self) -> None:
-        pass
-    def response(self, flow: HTTPFlow):
-        url = flow.request.url
-        if ('puzzle.aggie.io' in url and url.endswith('.js')):
-            flow.response.set_content(pathlib.Path('./dopescript.js').read_bytes())
-            print('Rewrote sex!', url)
 
-addons = [DiscordSnoofington(), PuzzleIOHackington()]
+addons = [DiscordSnoofington()]
